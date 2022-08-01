@@ -1,34 +1,3 @@
-# Проект 1
-Опишите здесь поэтапно ход решения задачи. 
-Вы можете ориентироваться на тот план выполнения проекта, который мы предлагаем в инструкции на платформе.
-
--- 1. Cоздаём представления для таблиц из схемы production в схему analysis
-
-CREATE VIEW analysis.orderitems AS (
-    SELECT *
-    FROM production.orderitems
-);
-CREATE VIEW analysis.orders AS (
-    SELECT *
-    FROM production.orders
-);
-CREATE VIEW analysis.orderstatuses AS (
-    SELECT *
-    FROM production.orderstatuses
-);
-CREATE VIEW analysis.orderstatuslog AS (
-    SELECT *
-    FROM production.orderstatuslog
-);
-CREATE VIEW analysis.products AS (
-    SELECT *
-    FROM production.products
-);
-CREATE VIEW analysis.users AS (
-    SELECT *
-    FROM production.users
-);
-
 /* 
 
 2. Cоздаём пустую таблицу для витрины,
@@ -59,3 +28,5 @@ CREATE TABLE analysis.tmp_rfm_monetary_value (
 user_id INT NOT NULL PRIMARY KEY,
 monetary_value INT NOT NULL CHECK(monetary_value >= 1 AND monetary_value <= 5)
 );
+
+
