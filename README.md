@@ -2,7 +2,7 @@
 Опишите здесь поэтапно ход решения задачи. 
 Вы можете ориентироваться на тот план выполнения проекта, который мы предлагаем в инструкции на платформе.
 
--- 1. Cоздаём представления для таблиц из схемы production в схему analysis
+-- 1. СОЗДАЁМ ПРЕДСТАВЛЕНИЯ для таблиц из схемы production в схему analysis
 
 CREATE VIEW analysis.orderitems AS (
     SELECT *
@@ -31,7 +31,7 @@ CREATE VIEW analysis.users AS (
 
 /* 
 
-2. Cоздаём пустую таблицу для витрины,
+2. СОЗДАЁМ ПУСТУЮ ТАБЛИЦУ ДЛЯ ВИТРИНЫ,
    т.к. метрики могут принимать значения только от 1 до 5 и не могут быть пустыми,
    то добавляем ограничения CHECK и NOT NULL
 
@@ -45,7 +45,7 @@ frequency smallint not null check (recency > 0 and recency <= 5),
 monetary_value smallint not null check (recency > 0 and recency <= 5)
 );
 
--- 3. Cоздаём 3 пустые таблицы для каждой метрики
+-- 3. СОЗДАЁМ 3 ПУСТЫЕ ТАБЛИЦЫ ДЛЯ КАЖДОЙ МЕТРИКИ
 
 CREATE TABLE analysis.tmp_rfm_recency (
 user_id INT NOT NULL PRIMARY KEY,
@@ -145,7 +145,7 @@ insert into analysis.dm_rfm_segments (user_id, recency, frequency, monetary_valu
 select *
 from analysis.tmp_rfm_recency as t1
 left join analysis.tmp_rfm_frequency as t2 using(user_id)
-left join analysis.tmp_rfm_monetary_value as t3 using(user_id)
+left join analysis.tmp_rfm_monetary_value as t3 using(user_id);
 
 /*
 10 записей
@@ -161,6 +161,19 @@ left join analysis.tmp_rfm_monetary_value as t3 using(user_id)
 8	1	1	3
 9	1	2	2
  */
+ 
+ -- 6. ПОЧИНИЛ ПРЕДСТАВЛЕНИЕ c заказами в схеме analysis
+ CREATE OR REPLACE VIEW analysis.orders AS
+SELECT orders.order_id,
+    orders.order_ts,
+    orders.user_id,
+    orders.bonus_payment,
+    orders.payment,
+    orders.cost,
+    orders.bonus_grant,
+    t2.status as status
+   FROM production.orders
+LEFT JOIN (select order_id, max(status_id) as status from production.orderstatuslog group by 1) as t2 using (order_id)
 
 
 
