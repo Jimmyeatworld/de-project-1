@@ -1,5 +1,11 @@
 # Проект 1
 
+Качество данных:
+
+ссылка на таблицу:
+https://docs.google.com/spreadsheets/d/1ysInfsfQA72IQbMxI89uOAhlg0J_NTi9v0Sbz_Xg3pg/edit?usp=sharing
+
+
 Качество данных таблицы orders:
 
 1. Все заказы в таблице уникальные, т.к. на поле order_id установлено ограничение PRIMARY KEY,
