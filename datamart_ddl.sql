@@ -10,8 +10,8 @@
 CREATE table analysis.dm_rfm_segments (
 user_id int primary key,
 recency smallint not null check (recency > 0 and recency <= 5),
-frequency smallint not null check (frequency > 0 and recency <= 5),
-monetary_value smallint not null check (monetary_value > 0 and recency <= 5)
+frequency smallint not null check (frequency > 0 and frequency <= 5),
+monetary_value smallint not null check (monetary_value > 0 and monetary_value <= 5)
 );
 
 -- 3. Cоздаём 3 пустые таблицы для каждой метрики
